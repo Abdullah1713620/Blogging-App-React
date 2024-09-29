@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
@@ -18,8 +17,6 @@ const App = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
     });
-
-    // Cleanup subscription on unmount
     return () => unsubscribe();
   }, []);
 

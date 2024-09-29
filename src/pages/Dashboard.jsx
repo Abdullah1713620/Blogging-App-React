@@ -1,4 +1,3 @@
-// src/pages/Dashboard.jsx
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { auth, db } from '../firebase/config';
@@ -14,10 +13,10 @@ const Dashboard = () => {
   useEffect(() => {
     const user = auth.currentUser;
 
-    // Redirect if user is not authenticated
+  
     if (!user) {
       navigate('/login'); 
-      return; // Ensure we exit early if there's no user
+      return;
     }
 
     const q = query(collection(db, 'blogs'), where('userId', '==', user.uid));
@@ -26,7 +25,7 @@ const Dashboard = () => {
       setBlogs(userBlogs);
     });
 
-    return () => unsubscribe(); // Cleanup on unmount
+    return () => unsubscribe();
   }, [navigate]);
 
   const onSubmit = async (data) => {
@@ -49,12 +48,12 @@ const Dashboard = () => {
       });
     }
 
-    reset(); // Reset form after submission
+    reset();
   };
 
   const handleEdit = (blog) => {
     setEditing(blog);
-    reset(blog); // Populate form with the blog to be edited
+    reset(blog);
   };
 
   const handleDelete = async (id) => {

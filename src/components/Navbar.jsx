@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase/config';
@@ -8,8 +7,8 @@ const Navbar = ({ user }) => {
 
   const handleLogout = async () => {
     try {
-      await auth.signOut(); // Sign out from Firebase
-      navigate('/'); // Redirect to home page after logout
+      await auth.signOut();
+      navigate('/'); 
     } catch (error) {
       console.error('Error logging out:', error);
     }

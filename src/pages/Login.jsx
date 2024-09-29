@@ -1,4 +1,3 @@
-// src/pages/Login.jsx
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { auth } from '../firebase/config';
@@ -8,17 +7,17 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(''); // State to hold success message
+  const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     setError('');
-    setSuccess(''); // Clear any previous success message
+    setSuccess('');
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
-      setSuccess('Logged in successfully!'); // Set success message
+      setSuccess('Logged in successfully!');
       setTimeout(() => {
-        navigate('/'); // Redirect after 2 seconds
+        navigate('/');
       }, 2000);
     } catch (error) {
       if (error.code === 'auth/wrong-password') {
@@ -35,7 +34,7 @@ const Login = () => {
   return (
     <div className="max-w-md mx-auto mt-10">
       <h2 className="text-3xl font-bold mb-6 text-center">Log In</h2>
-      {error && <p className="text-red-500 text-center mb-4">{error}</p>} {/* Display error message */}
+      {error && <p className="text-red-500 text-center mb-4">{error}</p>} {}
       {success && (
         <div className="bg-green-500 text-white text-center p-2 rounded mb-4 animate-fade-in">
           {success}

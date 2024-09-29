@@ -1,4 +1,3 @@
-// src/pages/Profile.jsx
 import React, { useState, useEffect } from 'react';
 import { auth } from '../firebase/config';
 import { updateProfile, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
@@ -15,9 +14,9 @@ const Profile = () => {
   useEffect(() => {
     const user = auth.currentUser;
     if (!user) {
-      navigate('/login'); // Redirect if the user is not authenticated
+      navigate('/login');
     } else {
-      setUsername(user.displayName); // Set initial username from auth
+      setUsername(user.displayName);
     }
   }, [navigate]);
 
@@ -49,7 +48,7 @@ const Profile = () => {
   return (
     <div className="max-w-md mx-auto mt-10">
       <h2 className="text-3xl font-bold mb-6">Profile</h2>
-      {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
+      {error && <p className="text-red-500">{error}</p>} {}
       <div className="bg-white p-6 rounded shadow-md mb-8">
         <label className="block mb-2 font-semibold">Username</label>
         <input

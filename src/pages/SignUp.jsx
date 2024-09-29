@@ -1,15 +1,14 @@
-// src/pages/SignUp.jsx
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { auth, db, storage } from '../firebase/config'; // Ensure to import storage
+import { auth, db, storage } from '../firebase/config';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { doc, setDoc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'; // Import storage functions
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const SignUp = () => {
   const { register, handleSubmit } = useForm();
-  const [image, setImage] = useState(null); // State for the image file
+  const [image, setImage] = useState(null); 
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
@@ -19,28 +18,27 @@ const SignUp = () => {
       const user = userCredential.user;
       console.log('User created:', user);
 
-      // Handle image upload
+      
       let imageUrl = '';
       if (image) {
-        const imageRef = ref(storage, `profileImages/${user.uid}`); // Create a reference for the image
-        await uploadBytes(imageRef, image); // Upload the image
-        imageUrl = await getDownloadURL(imageRef); // Get the download URL
+        const imageRef = ref(storage, `profileImages/${user.uid}`);
+        await uploadBytes(imageRef, image);
+        imageUrl = await getDownloadURL(imageRef);
         console.log('Image uploaded:', imageUrl);
       }
 
-      // Update user's display name and profile image URL
       await updateProfile(user, { displayName: data.username, photoURL: imageUrl });
       console.log('User profile updated');
 
-      // Save user data to Firestore
+
       await setDoc(doc(db, 'users', user.uid), {
         username: data.username,
         email: data.email,
-        photoURL: imageUrl, // Save the image URL to Firestore
+        photoURL: imageUrl,
       });
       console.log('User data saved to Firestore');
 
-      // Redirect to home page after everything is successful
+    
       navigate('/');
       console.log('Redirecting to home page');
     } catch (error) {
@@ -76,7 +74,7 @@ const SignUp = () => {
         <input
           type="file"
           accept="image/*"
-          onChange={(e) => setImage(e.target.files[0])} // Update the image state on file selection
+          onChange={(e) => setImage(e.target.files[0])}
           className="w-full mb-4 p-2 border rounded"
         />
         <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Sign Up</button>
